@@ -93,8 +93,8 @@ class Droplet:
 
         # keys should be a empty list, instead of None if nothing is passed
         # as later it is iterated upon, without this error is raised.
-        if keys is None:
-            keys = []
+        # if keys is None:
+        #     keys = []
 
         size_id = self.size.id_from_name(size)
         image_id = self.image.id_from_name(image)
