@@ -77,7 +77,7 @@ install:
   - "pip install --disable-pip-version-check --user --upgrade pip"
 
   # Install the build dependencies of the project.
-  - "pip install tox --use-mirrors"
+  - "pip install tox"
   - "pip install wheel"
 
 build: off
