@@ -1,16 +1,8 @@
 environment:
+  global:
+    - MOCK=1
 
   matrix:
-
-    # Python 2.7.10 is the latest version and is not pre-installed.
-
-    - PYTHON: "C:\\Python27.10"
-      PYTHON_VERSION: "2.7.10"
-      PYTHON_ARCH: "32"
-
-    - PYTHON: "C:\\Python27.10-x64"
-      PYTHON_VERSION: "2.7.10"
-      PYTHON_ARCH: "64"
 
     # Pre-installed Python versions, which Appveyor may upgrade to
     # a later point release.
@@ -19,26 +11,32 @@ environment:
     - PYTHON: "C:\\Python27"
       PYTHON_VERSION: "2.7.x" # currently 2.7.9
       PYTHON_ARCH: "32"
+      TOXENV: py27,lib,cli,coverage
 
     - PYTHON: "C:\\Python27-x64"
       PYTHON_VERSION: "2.7.x" # currently 2.7.9
       PYTHON_ARCH: "64"
+      TOXENV: py27,lib,cli,coverage
 
     - PYTHON: "C:\\Python33"
       PYTHON_VERSION: "3.3.x" # currently 3.3.5
       PYTHON_ARCH: "32"
+      TOXENV: py33,lib,cli,coverage
 
     - PYTHON: "C:\\Python33-x64"
       PYTHON_VERSION: "3.3.x" # currently 3.3.5
       PYTHON_ARCH: "64"
+      TOXENV: py33,lib,cli,coverage
 
     - PYTHON: "C:\\Python34"
       PYTHON_VERSION: "3.4.x" # currently 3.4.3
       PYTHON_ARCH: "32"
+      TOXENV: py34,lib,cli,coverage
 
     - PYTHON: "C:\\Python34-x64"
       PYTHON_VERSION: "3.4.x" # currently 3.4.3
       PYTHON_ARCH: "64"
+      TOXENV: py34,lib,cli,coverage
 
     # Python versions not pre-installed
 
@@ -48,29 +46,12 @@ environment:
     - PYTHON: "C:\\Python266"
       PYTHON_VERSION: "2.6.6"
       PYTHON_ARCH: "32"
+      TOXENV: py26,lib,cli,coverage
 
     - PYTHON: "C:\\Python266-x64"
       PYTHON_VERSION: "2.6.6"
       PYTHON_ARCH: "64"
-
-    - PYTHON: "C:\\Python35"
-      PYTHON_VERSION: "3.5.0"
-      PYTHON_ARCH: "32"
-
-    - PYTHON: "C:\\Python35-x64"
-      PYTHON_VERSION: "3.5.0"
-      PYTHON_ARCH: "64"
-
-    # Major and minor releases (i.e x.0.0 and x.y.0) prior to 3.3.0 use
-    # a different naming scheme.
-
-    - PYTHON: "C:\\Python270"
-      PYTHON_VERSION: "2.7.0"
-      PYTHON_ARCH: "32"
-
-    - PYTHON: "C:\\Python270-x64"
-      PYTHON_VERSION: "2.7.0"
-      PYTHON_ARCH: "64"
+      TOXENV: py26,lib,cli,coverage
 
 install:
   - ECHO "Filesystem root:"
@@ -94,14 +75,14 @@ install:
   - "pip install --disable-pip-version-check --user --upgrade pip"
 
   # Install the build dependencies of the project.
-  - "pip install -r requirements\\base.txt"
-  - "pip install -r requirements\\lib.txt"
+  - "pip install tox --use-mirrors"
+  - "pip install wheel"
 
 build: off
 
 test_script:
   # Run the project tests
-  - "py.test"
+  - "tox"
 
 after_test:
   # If tests are successful, create binary packages for the project.
