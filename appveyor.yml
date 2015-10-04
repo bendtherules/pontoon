@@ -1,6 +1,6 @@
 environment:
   global:
-    - MOCK=1
+    - MOCK: 1
 
   matrix:
 
