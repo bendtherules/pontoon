@@ -3,6 +3,7 @@ environment:
   global:
 
     MOCK: "1"
+    PIP_DOWNLOAD_CACHE : "C\\PIP_DOWNLOAD_CACHE"
 
   matrix:
 
@@ -78,7 +79,6 @@ install:
 
   # Install the build dependencies of the project.
   - "pip install tox"
-  - "pip install wheel"
 
 build: off
 
@@ -88,6 +88,7 @@ test_script:
 
 after_test:
   # If tests are successful, create binary packages for the project.
+  - "pip install wheel"
   - "python setup.py bdist_wheel"
   - "python setup.py bdist_wininst"
   - "python setup.py bdist_msi"
