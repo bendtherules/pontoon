@@ -1,6 +1,4 @@
 environment:
-  global:
-    #None
 
   matrix:
 
