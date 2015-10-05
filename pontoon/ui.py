@@ -2,7 +2,7 @@
 
 from __future__ import print_function
 
-import readline
+# import readline
 import textwrap
 from os.path import (isfile, expanduser,
                      basename, splitext, join)
